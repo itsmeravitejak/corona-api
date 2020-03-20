@@ -4,7 +4,7 @@ python:
 branches:
   only:
   - master
-script: python main.py
+script: python crawler.py
 
 install:
 - pip install -r requirements.txt
