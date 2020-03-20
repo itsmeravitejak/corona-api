@@ -5,6 +5,12 @@ branches:
   only:
   - master
 script: python crawler.py
-
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  on:
+    branch: master
 install:
 - pip install -r requirements.txt
