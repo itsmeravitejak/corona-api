@@ -1,0 +1,130 @@
+<html><head>
+  
+  <title>Corona India Dashboard</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <!-- <script type="text/javascript" src="/js/lib/dummy.js"></script> -->
+
+    
+
+   <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+  <style id="compiled-css" type="text/css">
+      
+  </style>
+
+<script type="text/javascript" charset="UTF-8" src="https://www.gstatic.com/charts/47/loader.js"></script><link id="load-css-0" rel="stylesheet" type="text/css" href="https://www.gstatic.com/charts/47/css/core/tooltip.css"><link id="load-css-1" rel="stylesheet" type="text/css" href="https://www.gstatic.com/charts/47/css/util/util.css"><script type="text/javascript" charset="UTF-8" src="https://www.gstatic.com/charts/47/js/jsapi_compiled_format_module.js"></script><script type="text/javascript" charset="UTF-8" src="https://www.gstatic.com/charts/47/js/jsapi_compiled_default_module.js"></script><script type="text/javascript" charset="UTF-8" src="https://www.gstatic.com/charts/47/js/jsapi_compiled_ui_module.js"></script><script type="text/javascript" charset="UTF-8" src="https://www.gstatic.com/charts/47/js/jsapi_compiled_geochart_module.js"></script><script type="text/javascript" charset="UTF-8" src="https://www.gstatic.com/charts/regioncoder/0/geocodes/in.js"></script></head>
+<body>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <div id="regions_div" style="width: 900px; height: 500px;"></div>
+
+
+  <!-- TODO: Missing CoffeeScript 2 -->
+
+  <script type="text/javascript">//<![CDATA[
+
+
+var transformed=[]
+$.getJSON( "https://www.ravitejak.in/corona-api/api/statewide.json", function( data ) {
+ 
+
+scodes={"Andhra Pradesh":"IN-AP",
+"Arunachal Pradesh":"IN-AR",
+"Assam":"IN-AS",
+"Bihar":"IN-BR",
+"Chhattisgarh":"IN-CT",
+"Goa":"IN-GA",
+"Gujarat":"IN-GJ",
+"Haryana":"IN-HR",
+"Himachal Pradesh":"IN-HP",
+"Jharkhand":"IN-JH",
+"Karnataka":"IN-KA",
+"Kerala":"IN-KL",
+"Madhya Pradesh":"IN-MP",
+"Maharashtra":"IN-MH",
+"Manipur":"IN-MN",
+"Meghalaya":"IN-ML",
+"Mizoram":"IN-MZ",
+"Nagaland":"IN-NL",
+"Odisha":"IN-OR",
+"Punjab":"IN-PB",
+"Rajasthan":"IN-RJ",
+"Sikkim":"IN-SK",
+"Tamil Nadu":"IN-TN",
+"Telengana":"IN-TG",
+"Tripura":"IN-TR",
+"Uttarakhand":"IN-UT",
+"Uttar Pradesh":"IN-UP",
+"West Bengal":"IN-WB",
+"Andaman and Nicobar Islands":"IN-AN",
+"Chandigarh":"IN-CH",
+"Dadra and Nagar Haveli":"IN-DN",
+"Daman and Diu":"IN-DD",
+"Delhi":"IN-DL",
+"Jammu and Kashmir":"IN-JK",
+"Ladakh":"IN-LA",
+"Lakshadweep":"IN-LD",
+"Puducherry":"IN-PY"}
+
+
+transformed.push(["State Code","State","Active(Confirmed-Cured)","Deaths"])
+data.forEach(element=>{
+    // console.log(element)
+    let confirmed=parseInt(element['Confirmed-Indian'])+parseInt(element['Confirmed-Foreign'])
+    let cured=element["Cured/Discharged/Migrated"]
+    let deaths=element["Death"]
+    let state=element['Name']
+    let statecode=scodes[state]
+    if(state!="Total")
+    transformed.push([statecode,state,confirmed-cured,deaths])
+})
+
+	google.charts.load('current', {
+        'packages':['geochart'],
+        // Note: you will need to get a mapsApiKey for your project.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        'mapsApiKey': 'AIzaSyDZvrxjOzoCTpRdiNnHdnPLweJ0tZ_JNk4'
+      });
+            google.charts.setOnLoadCallback(drawRegionsMap);
+
+})
+
+
+
+      function drawRegionsMap() {
+        var data = google.visualization.arrayToDataTable(transformed);
+
+        var options = {
+        region: 'IN',
+displayMode: 'regions', //If you want to highlight some cities
+            resolution: 'provinces', //If you want to display provinces in India
+            
+
+
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        chart.draw(data, options);
+      }
+
+
+  //]]></script>
+
+  <script>
+    // tell the embed parent frame the height of the content
+    if (window.parent && window.parent.parent){
+      window.parent.parent.postMessage(["resultsFrame", {
+        height: document.body.getBoundingClientRect().height,
+        slug: ""
+      }], "*")
+    }
+
+    // always overwrite window.name, in case users try to set it manually
+    window.name = "result"
+  </script>
+
+
+</body></html>
