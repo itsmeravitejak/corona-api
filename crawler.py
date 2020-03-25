@@ -37,9 +37,9 @@ for i, response in enumerate(responses):
                         
 import pprint
 pprint.pprint(statewide_list)
-# with open('api/statewide.json', 'w') as file:
-#     file.write(json.dumps(statewide_list))
-#     print "Saved Statewide data"
+with open('api/statewide.json', 'w') as file:
+    file.write(json.dumps(statewide_list))
+    print "Saved Statewide data"
 
 pprint.pprint(overall_list)
 with open('api/overall.json', 'w') as file:
