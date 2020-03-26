@@ -103,7 +103,7 @@ scodes={"Andhra Pradesh":"IN-AP",
 "Puducherry":"IN-PY"}
 
 
-transformed.push(["State Code","State","Active(Confirmed-Cured)","Deaths"])
+transformed.push(["State Code","State","Active(Confirmed-Cured/Deaths)","Deaths"])
 data.forEach(element=>{
     // console.log(element)
     let confirmed=parseInt(element['Confirmed-Indian'])+parseInt(element['Confirmed-Foreign'])
@@ -112,7 +112,7 @@ data.forEach(element=>{
     let state=element['Name']
     let statecode=scodes[state]
     if(state!="Total")
-    transformed.push([statecode,state,confirmed-cured,deaths])
+    transformed.push([statecode,state,confirmed-cured-deaths,deaths])
 })
 
 	google.charts.load('current', {
