@@ -20,8 +20,10 @@ for i, response in enumerate(responses):
     for row in selectedtags:
         tds = row.select("td")
         print(tds)
+        if(len(tds)<5):
+            continue
         if(tds[0].text.lower().find("India".lower()) != -1):
-            statewide_list.append({"Name":"Total","Confirmed-Indian":tds[1].text,"Confirmed-Foreign":int(tds[2].text.strip('\r\n#*')),"Cured/Discharged/Migrated":int(tds[3].text.strip('\r\n#*')),"Death":int(tds[4].text.strip('\r\n#*'))})
+            statewide_list.append({"Name":"Total","Confirmed-Indian":int(tds[1].text.strip('\r\n#*')),"Confirmed-Foreign":int(tds[2].text.strip('\r\n#*')),"Cured/Discharged/Migrated":int(tds[3].text.strip('\r\n#*')),"Death":int(tds[4].text.strip('\r\n#*'))})
         else:
             statewide_list.append({"Name":tds[1].text.strip('\r\n#*'),"Confirmed-Indian":int(tds[2].text.strip('\r\n#*')),"Confirmed-Foreign":int(tds[3].text.strip('\r\n#*')),"Cured/Discharged/Migrated":int(tds[4].text.strip('\r\n#*')),"Death":int(tds[5].text.strip('\r\n#*'))})
     
