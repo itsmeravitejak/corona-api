@@ -108,6 +108,6 @@ with open('api/statewide.json', 'w') as file:
 pprint.pprint(overall_list)
 with open('api/overall.json', 'w') as file:
     file.write(json.dumps(overall_list))
-    print "Saved Overall data"
+    print "Saved Overall data test"
 
 # district_level_json()
