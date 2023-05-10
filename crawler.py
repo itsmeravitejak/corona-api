@@ -93,7 +93,7 @@ def district_level_json():
 
     with open('api/districts.json', 'w') as file:
         file.write(json.dumps(get_out(arr)))
-        print "Saved Overall data"
+        print "Saved Overall data two"
 
 
 
